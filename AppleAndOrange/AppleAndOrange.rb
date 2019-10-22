@@ -7,16 +7,13 @@ require 'stringio'
 
 # Complete the countApplesAndOranges function below.
 def countApplesAndOranges(s, t, a, b, apples, oranges)
-    real_distance_apples = apples.map{|x| a + x}
-    real_distance_oranges = oranges.map{|x| b + x}
+    house = (s..t).to_a
 
-    s_apples = real_distance_apples | []
-    s_oranges = real_distance_oranges | []
-    
-    house = (s..t).to_a | []
+    s_apples = apples.map{|x| a + x}
+    s_oranges = oranges.map{|x| b + x}
 
-    apples_falled = s_apples - (s_apples - house)
-    oranges_falled = s_oranges - (s_oranges - house)
+    apples_falled = s_apples.find_all{|a| house.include?(a)}
+    oranges_falled = s_oranges.find_all{|o| house.include?(o)}
 
     puts apples_falled.length
     puts oranges_falled.length
