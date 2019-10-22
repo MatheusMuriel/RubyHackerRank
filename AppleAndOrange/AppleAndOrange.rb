@@ -7,16 +7,9 @@ require 'stringio'
 
 # Complete the countApplesAndOranges function below.
 def countApplesAndOranges(s, t, a, b, apples, oranges)
-    house = (s..t).to_a
-
-    s_apples = apples.map{|x| a + x}
-    s_oranges = oranges.map{|x| b + x}
-
-    apples_falled = s_apples.find_all{|a| house.include?(a)}
-    oranges_falled = s_oranges.find_all{|o| house.include?(o)}
-
-    puts apples_falled.length
-    puts oranges_falled.length
+    vrf_fruit_fall = -> (f, x){(f + x).between?(s, t)}
+    puts apples.find_all{|x| vrf_fruit_fall.(a, x)}.length
+    puts oranges.find_all{|x| vrf_fruit_fall.(b, x)}.length
 end
 
 st = gets.rstrip.split
