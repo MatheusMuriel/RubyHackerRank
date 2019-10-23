@@ -15,8 +15,15 @@ require 'stringio'
 #
 
 def getTotalX(a, b)
-    # Write your code here
+    is_factor = -> (n1, n2){n1 % n2 == 0}
 
+    max = [a.max, b.max].max
+
+    ns_between = (1..max).each.select{ |i|
+        a.all?{|_a| is_factor.(i, _a)} && b.all?{|_b| is_factor.(_b, i)}
+    }
+
+    return ns_between.length
 end
 
 first_multiple_input = gets.rstrip.split
