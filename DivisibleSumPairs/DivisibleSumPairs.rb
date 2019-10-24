@@ -7,11 +7,14 @@ require 'stringio'
 
 # Complete the divisibleSumPairs function below.
 def divisibleSumPairs(n, k, ar)
-
-
+    valid_sum = -> (a, b){(a+b) % k == 0}
+    pairs = ar.each_with_index.map{|vi, i|
+                ar.each_with_index.map{|vj, j|
+                    (i < j) && valid_sum.(vi, vj) ? [vi, vj] : nil
+                }.reject{|v| v.nil?}
+            }.flat_map{|v_arr| v_arr}
+    return pairs.length
 end
-
-fptr = File.open(ENV['OUTPUT_PATH'], 'w')
 
 nk = gets.rstrip.split
 
@@ -23,7 +26,4 @@ ar = gets.rstrip.split(' ').map(&:to_i)
 
 result = divisibleSumPairs n, k, ar
 
-fptr.write result
-fptr.write "\n"
-
-fptr.close()
+puts result
