@@ -7,11 +7,10 @@ require 'stringio'
 
 # Complete the birthday function below.
 def birthday(s, d, m)
-
-
+    valid_way = -> (arr){(arr.length == m) && (arr.sum == d)}
+    ways = s.each_with_index.select{|c,i| valid_way.(s[i..((i+m)-1)])}
+    return ways.length
 end
-
-fptr = File.open(ENV['OUTPUT_PATH'], 'w')
 
 n = gets.strip.to_i
 
@@ -25,7 +24,3 @@ m = dm[1].to_i
 
 result = birthday s, d, m
 
-fptr.write result
-fptr.write "\n"
-
-fptr.close()
