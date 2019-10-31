@@ -7,8 +7,8 @@ require 'stringio'
 
 # Complete the bonAppetit function below.
 def bonAppetit(bill, k, b)
-
-
+  bActual = (bill.reduce(:+)-bill[k]) / 2
+  puts b == bActual ? "Bon Appetit" : "#{b-bActual}"
 end
 
 nk = gets.rstrip.split
