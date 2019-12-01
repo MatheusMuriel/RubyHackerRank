@@ -7,10 +7,12 @@ require 'stringio'
 
 # Complete the countingValleys function below.
 def countingValleys(n, s)
-    arr = s.chars
-    arr.pop; arr.shift;
-    arr = arr.partition{|a|a=='U'}
-    return (arr[0].length - arr[1].length).abs / 2
+  arr = s.chars
+  alts = [0]
+  arr.each_with_index{ |p,i|
+    alts.push((p == 'U') ? alts.last + 1 : alts.last - 1)}
+  valleys = alts.count(0) / 2
+  return valleys
 end
 
 n = gets.to_i
