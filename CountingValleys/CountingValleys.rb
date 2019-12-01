@@ -11,8 +11,30 @@ def countingValleys(n, s)
   alts = [0]
   arr.each_with_index{ |p,i|
     alts.push((p == 'U') ? alts.last + 1 : alts.last - 1)}
-  valleys = alts.count(0) / 2
-  return valleys
+  alts.shift
+  
+  in_vall = false
+  count_valls = 0
+  alts.each_with_index{|a,i| 
+    if a == 0 and in_vall == false 
+      count_valls += 1 
+      in_vall = true
+    elsif a == 0 and in_vall == true
+      p_val = alts[i+1]
+      if !p_val.nil? 
+        if p_val > 0 
+          in_vall = false
+        end
+      #else
+        #count_valls += 1
+        #puts i
+      end
+    elsif in_vall == true and a > 0
+      in_vall == false
+    end
+  }
+  p alts
+  return count_valls
 end
 
 n = gets.to_i
