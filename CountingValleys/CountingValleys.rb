@@ -9,32 +9,19 @@ require 'stringio'
 def countingValleys(n, s)
   arr = s.chars
   alts = [0]
-  arr.each_with_index{ |p,i|
-    alts.push((p == 'U') ? alts.last + 1 : alts.last - 1)}
-  alts.shift
+  arr.each{|p| alts.push(alts.last + (p == 'U' ? 1 : -1))}
+  alts.push(0)
   
-  in_vall = false
-  count_valls = 0
-  alts.each_with_index{|a,i| 
-    if a == 0 and in_vall == false 
-      count_valls += 1 
-      in_vall = true
-    elsif a == 0 and in_vall == true
-      p_val = alts[i+1]
-      if !p_val.nil? 
-        if p_val > 0 
-          in_vall = false
-        end
-      #else
-        #count_valls += 1
-        #puts i
-      end
-    elsif in_vall == true and a > 0
-      in_vall == false
+  count = 0
+  in_valley = false
+  alts.each_with_index{|a,i|
+    in_valley = true if (a == -1 and in_valley == false)
+    if in_valley == true and a == 0
+      in_valley = false
+      count += 1
     end
   }
-  p alts
-  return count_valls
+  return count
 end
 
 n = gets.to_i
