@@ -5,11 +5,27 @@
 #
 # Complete the getMoneySpent function below.
 #
-def getMoneySpent(keyboards, drives, b)
-  #
-  # Write your code here.
-  #
+def getMoneySpent(keyboards, drives, bud)
+  
+  max_k = keyboards.max()
+  max_d = drives.max()
 
+  a, b = (max_k > max_d) ? [keyboards, drives] : [drives, keyboards]
+
+  max_value = -1
+  a.sort.reverse.each{|i| 
+    b_aux = b.clone
+    b_aux.sort.reverse.each{ |j| 
+      res_aux = (i + j)
+      if res_aux <= bud
+        max_value = res_aux
+        break
+      end
+    }
+    break if max_value != -1
+  }
+
+  return max_value
 end
 
 bnm = gets.rstrip.split
